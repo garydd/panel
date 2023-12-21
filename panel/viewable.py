@@ -539,7 +539,7 @@ class Renderable(param.Parameterized, MimeRenderMixin):
         self._logger = logging.getLogger(f'{__name__}.{type(self).__name__}')
 
     def _log(self, msg: str, *args, level: str = 'debug') -> None:
-        getattr(self._logger, level)(f'Session %s {msg}', id(state.curdoc), *args)
+        getattr(self._logger, level)(f'Session %s {state.curdoc.session_context._request._request.remote_ip + "/" + state.curdoc.session_context._request._request.path  + ": " + msg}', id(state.curdoc), *args)
 
     def _get_model(
         self, doc: Document, root: Optional['Model'] = None,
