@@ -78,7 +78,8 @@ class _LogTabulator(Tabulator):
         "sorters": [{'field': 'datetime', 'dir': 'dsc'}],
         "disabled": True,
         "pagination": "local",
-        "page_size": 18,
+        "page_size": 40,
+        "hidden_columns": ['session'],
     }
 
     def __init__(self, **params):
@@ -88,7 +89,7 @@ class _LogTabulator(Tabulator):
 
     @staticmethod
     def _create_frame(data=None):
-        columns=["datetime", "level", "app", "session", "message"]
+        columns=["datetime", "level", "app", "message"]
         if data is None:
             return pd.DataFrame(columns=columns)
         else:
@@ -104,7 +105,7 @@ class _LogTabulator(Tabulator):
             app = s[3]
             session = int(s[6])
             message = " ".join(s[7:])
-            df = self._create_frame([datetime, level, app, session, message])
+            df = self._create_frame([datetime, level, app, message])
 
             self.stream(df, follow=False)
         except Exception:
